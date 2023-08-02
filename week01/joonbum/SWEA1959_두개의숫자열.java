@@ -16,7 +16,6 @@ public class SWEA1959_두개의숫자열 {
 		//i로 더 작은 배열을 큰배열 위로 한칸씩 이동함.
 		for(int i = 0; i <= longArr.length - shortArr.length; i++) {
 			sum = 0;
-//			System.out.println("i : "+ i+", 인덱스"+i+"~"+(i+shortArr.length-1)+"까지");
 			for(int j = i; j < i + shortArr.length; j++) {
 				sum += longArr[j]*shortArr[j-i];
 			}
