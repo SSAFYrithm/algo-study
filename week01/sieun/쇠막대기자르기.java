@@ -3,6 +3,8 @@ import java.io.FileInputStream;
 public class 쇠막대기자르기
 {
     /*
+    222 ms
+    32,992 kb
     시간 복잡도 n
     공간 복잡도 n
     (이 나오면 막대가 시작 한다. 
