@@ -1,0 +1,38 @@
+package list;
+
+import java.io.*;
+
+public class SWEA5432_쇠막대기자르기 {
+	
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
+		int T = Integer.parseInt(br.readLine());
+		
+		for(int test = 1 ; test <= T ; test++) {
+			sb.append("#").append(test).append(" ");
+			int sum = 0;
+			int bar = 0;
+			String str = br.readLine();
+			int len = str.length();
+			for(int i = 0; i < len-1; i++) {
+				char chr1 = str.charAt(i);
+				char chr2 = str.charAt(i+1);
+				if(chr1 == '(' && chr2 == ')') {
+					sum+=bar;
+					i++;
+					continue;
+				}
+				if(chr1 == '(') bar++;
+				else{
+					bar--;
+					sum++;
+				}
+			}
+			sum+=bar;
+			sb.append(sum).append("\n");
+		}
+		System.out.println(sb);
+	}
+}
