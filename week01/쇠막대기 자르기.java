@@ -1,4 +1,4 @@
-//메모리: 26,896 KB, 시간: 159 ms, 코드길이: 646 Bytes
+//메모리: 26,896 KB, 시간: 145 ms, 코드길이: 646 Bytes
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
