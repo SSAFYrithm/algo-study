@@ -2,18 +2,17 @@ package week01;
 
 import java.util.*;
 import java.io.*;
-//메모리 32,260 kb
-//실행시간 194 ms
+//메모리 28,312 kb
+//실행시간 145 ms
 public class SWEA5432_쇠막대기자르기 {
 
 //	Stack<E> stack
-	public static Stack<Character> stack = new Stack<Character>();
-	public static int cnt;
+//	public static Stack<Character> stack = new Stack<Character>();
+	public static int cnt, currentOpenParNum;
 	public static StringBuilder sb = new StringBuilder();
 	
 	public static void main(String[] args) throws IOException{
 		
-		Stack<Character> stack = new Stack<Character>();
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int t;
 		String inputStr;
@@ -25,6 +24,7 @@ public class SWEA5432_쇠막대기자르기 {
 			breakStick(inputStr);
 			sb.append("#").append(test_case).append(" ").append(cnt).append("\n");
 			cnt = 0;
+			currentOpenParNum = 0;
 		}
 		
 		System.out.println(sb);
@@ -32,20 +32,26 @@ public class SWEA5432_쇠막대기자르기 {
 	}
 	
 	private static void breakStick(String pars) {
-		char prePar = stack.push(pars.charAt(0));
+//		char prePar = stack.push(pars.charAt(0));
+		char prePar = pars.charAt(0);
+		currentOpenParNum++;
 		
 		//스택에 괄호 하나씩 넣으면서 탐색
 		for(int i = 1; i < pars.length(); i++) {
 			//")"만났을경우
 			//직전 괄호가 "("면 레이저 쏘기 : "(" pop하고, 스택크기만큼 cnt 증가
-			//직전에 넣은게 ")"면 스택맨위 "(" pop, cnt 1만큼 증가. 
+			//직전 괄호가 ")"면 스택맨위 "(" pop, cnt 1만큼 증가.
 			if(pars.charAt(i)== ')') {
 				if(prePar == '(') {
-					stack.pop();
-					cnt += stack.size();
+//					stack.pop();
+//					cnt += currentOp;
+					currentOpenParNum--;
+					cnt += currentOpenParNum;
 				}
+ 
 				else {
-					stack.pop();
+//					stack.pop();
+					currentOpenParNum--;
 					cnt += 1;
 				}
 			}
@@ -53,14 +59,15 @@ public class SWEA5432_쇠막대기자르기 {
 			//"("만났을경우
 			//스택에 넣는다.
 			else {
-				stack.push(pars.charAt(i));
+//				stack.push(pars.charAt(i));
+				currentOpenParNum++;
 			}
 			
 			//pre값 갱신해주기.
 			prePar = pars.charAt(i);
 		}
 		
-		stack.clear();
+//		stack.clear();
 	}
 	
 }

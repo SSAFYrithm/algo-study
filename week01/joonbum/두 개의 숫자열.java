@@ -1,5 +1,6 @@
 package week01;
-
+//메모리 : 21,104 kb
+//실행시간 : 153 ms
 import java.util.Scanner;
 
 public class SWEA1959_두개의숫자열 {
