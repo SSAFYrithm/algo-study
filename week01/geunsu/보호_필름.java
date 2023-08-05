@@ -38,6 +38,7 @@ public class 보호_필름 {
     }
 
     public static boolean validateCheck(int layer,int cell,int sequence,int beforeCell, boolean validate ) {
+
         if (sequence == k){
             validate = true;
         }
@@ -52,5 +53,7 @@ public class 보호_필름 {
         } else{
             return validateCheck(layer+1,cell,sequence+1,protector[layer][cell],validate);
         }
+
+        //just blank
     }
 }
