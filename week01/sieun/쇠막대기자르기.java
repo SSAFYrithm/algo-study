@@ -3,6 +3,7 @@ import java.io.FileInputStream;
 public class 쇠막대기자르기
 {
     /*
+    링크 : https://swexpertacademy.com/main/code/problem/problemSubmitHistory.do
     222 ms
     32,992 kb
     시간 복잡도 n
