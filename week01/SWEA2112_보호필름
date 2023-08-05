@@ -1,3 +1,9 @@
+/*
+* 메모리 108,840 kb
+* 실행시간 1,074 ms
+*/
+
+
 package recursive;
 
 import java.io.*;
