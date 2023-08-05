@@ -1,4 +1,4 @@
-//메모리: 26,896 KB, 시간: 145 ms, 코드길이: 646 Bytes
+//메모리: 33,124 KB, 시간: 156 ms, 코드길이: 648 Bytes
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,18 +8,18 @@ public class Solution {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int T = Integer.parseInt(br.readLine());
-		for(int t = 1; t <= T; t++) {
-			int res = 0, cnt = 0;
+		for(int tc = 1; tc <= T; tc++) {
+			int ans = 1, cnt = 0;
 			String s = br.readLine();
 			for(int i = 0; i < s.length() - 1; i++) {
 				if(s.charAt(i) == '(' && s.charAt(i + 1) == ')') { 
-					res += cnt;
+					ans += cnt;
 					i++;
 				}
 				else if(s.charAt(i) == '(') cnt++; 
-				else { cnt--; res++; } 
+				else { cnt--; ans++; } 
 			}
-			System.out.println("#" + t + " " + ++res);
+			System.out.println("#" + tc + " " + ans);
 		}
 	}
 }
