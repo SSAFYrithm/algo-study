@@ -52,6 +52,5 @@ public class 보호_필름 {
         } else{
             return validateCheck(layer+1,cell,sequence+1,protector[layer][cell],validate);
         }
-
     }
 }
