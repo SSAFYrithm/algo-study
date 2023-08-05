@@ -1,3 +1,8 @@
+/*
+* 메모리 33,140 kb
+* 실행시간 164 ms
+*/
+
 package list;
 
 import java.io.*;
