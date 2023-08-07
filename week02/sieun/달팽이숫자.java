@@ -1,3 +1,5 @@
+package 김시은;
+
 import java.util.Scanner;
 import java.io.FileInputStream;
 /*
