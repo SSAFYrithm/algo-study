@@ -1,0 +1,85 @@
+/*
+* 메모리 108,840 kb
+* 실행시간 1,074 ms
+*/
+
+
+package recursive;
+
+import java.io.*;
+import java.util.*;
+
+public class SWEA2112_보호필름 {
+	static int D, W, K, map[][], min;
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		int T = Integer.parseInt(br.readLine());
+		for(int test = 1; test <= T; test++) {
+			String str = br.readLine();
+			StringTokenizer stk = new StringTokenizer(str);
+			
+			D = Integer.parseInt(stk.nextToken());
+			W = Integer.parseInt(stk.nextToken());
+			K = Integer.parseInt(stk.nextToken());
+			
+			map = new int[D][W];
+			min = K;
+			
+			for(int i = 0; i < D; i++) {
+				str = br.readLine();
+				stk = new StringTokenizer(str);
+				for(int j = 0; j < W; j++) {
+					map[i][j] = Integer.parseInt(stk.nextToken());
+				}
+			}
+			if(check()) min=0;
+			if(min != 0) dfs(0,0);
+
+			sb.append("#").append(test).append(" ").append(min).append("\n");
+		}
+		System.out.println(sb);
+		
+	}
+	
+	private static void dfs(int depth, int cnt) {
+		if(cnt > min) return;
+		if(check()) {
+			if(cnt < min) min = cnt;
+			return;
+		}
+		if(depth == D) return;
+		
+		//바꾸지않았을때
+		dfs(depth+1, cnt);
+		int[] temp = Arrays.copyOf(map[depth], W);
+		//0으로 바꿨을때
+		Arrays.fill(map[depth], 0);
+		dfs(depth+1, cnt+1);
+		//1로 바꿨을때
+		Arrays.fill(map[depth], 1);
+		dfs(depth+1, cnt+1);
+		//원상복귀
+		map[depth] = Arrays.copyOf(temp, W);
+		
+	}
+		
+	
+	private static boolean check() {
+		int[] cnt = new int[W];
+		boolean[] valid = new boolean[W];
+		for(int j = 0; j < W; j++) {
+			for(int i = 0; i < D-1; i++) {
+				if(map[i][j] == map[i+1][j]) cnt[j]++;
+				else cnt[j] = 0;
+				if(cnt[j] == K-1) {
+					valid[j] = true;
+					break;
+				}
+			}
+			if(!valid[j]) return false;
+		}
+		return true;
+	}
+
+}

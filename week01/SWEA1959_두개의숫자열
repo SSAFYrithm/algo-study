@@ -1,0 +1,64 @@
+/*
+* 메모리 17,684 kb
+* 실행시간 107 ms
+*/
+
+
+package list;
+
+import java.io.*;
+import java.util.*;
+
+public class SWEA1959_두개의숫자열 {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int T = Integer.parseInt(br.readLine());
+
+		for (int test = 1; test <= T; test++) {
+			String str = br.readLine();
+			StringTokenizer stk = new StringTokenizer(str);
+
+			int N = Integer.parseInt(stk.nextToken());
+			int M = Integer.parseInt(stk.nextToken());
+
+			int[] A = new int[N];
+			int[] B = new int[M];
+
+			str = br.readLine();
+			stk = new StringTokenizer(str);
+			for (int i = 0; i < N; i++) {
+				A[i] = Integer.parseInt(stk.nextToken());
+			}
+			str = br.readLine();
+			stk = new StringTokenizer(str);
+			for (int i = 0; i < M; i++) {
+				B[i] = Integer.parseInt(stk.nextToken());
+			}
+
+			int P[];
+			int Q[];
+			int gap = Math.abs(N - M);
+			int min = Math.min(N, M);
+			int max = Integer.MIN_VALUE;
+
+			if (N < M) {
+				P = A;
+				Q = B;
+			} else {
+				P = B;
+				Q = A;
+			}
+
+			for (int i = 0; i <= gap; i++) {
+				int sum = 0;
+				for (int j = 0; j < min; j++) {
+					sum += P[j] * Q[i + j];
+				}
+				max = Math.max(max, sum);
+			}
+			System.out.println("#" + test + " " + max);
+
+		}
+
+	}
+}

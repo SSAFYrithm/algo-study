@@ -1,0 +1,47 @@
+/*
+* 메모리 20,312 kb
+* 실행시간 175 ms
+*/
+
+
+import java.io.*;
+import java.util.*;
+
+public class SWEW5215_햄버거다이어트 {
+	
+	static int foods[][], N, L, max = 0;
+
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int T = Integer.parseInt(br.readLine());
+		for (int test = 1; test <= T; test++) {
+			String str = br.readLine();
+			StringTokenizer stk = new StringTokenizer(str);
+			N = Integer.parseInt(stk.nextToken());
+			L = Integer.parseInt(stk.nextToken());
+			
+			foods = new int[N][2];
+			for(int i = 0; i < N; i++) {
+				str = br.readLine();
+				stk = new StringTokenizer(str);
+				foods[i][0] = Integer.parseInt(stk.nextToken());
+				foods[i][1] = Integer.parseInt(stk.nextToken());
+			}
+			
+			dfs(0,0,0);
+			System.out.println("#"+test+" "+max);
+			max = 0;
+		}
+	}
+	
+	private static void dfs(int depth, int score, int cal) {
+		if(cal > L) return;
+		if(depth == N) {
+			if(score > max) max = score;
+			return;
+		}
+		dfs(depth+1, score+foods[depth][0], cal+foods[depth][1]);
+		dfs(depth+1, score, cal);
+	}
+
+}

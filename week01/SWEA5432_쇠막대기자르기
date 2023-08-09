@@ -1,0 +1,48 @@
+/*
+* 메모리 33,140 kb
+* 실행시간 164 ms
+*/
+
+package list;
+
+import java.io.*;
+
+public class SWEA5432_쇠막대기자르기 {
+	
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
+		int T = Integer.parseInt(br.readLine());
+		
+		for(int test = 1 ; test <= T ; test++) {
+			sb.append("#").append(test).append(" ");
+			int sum = 0;
+			int bar = 0;
+			String str = br.readLine();
+			int len = str.length();
+			// ( 와 )를 입력 받으며 
+			for(int i = 0; i < len-1; i++) {
+				char chr1 = str.charAt(i);
+				char chr2 = str.charAt(i+1);
+				// ()가 입력되면 막대의 개수만큼 sum에 추가, 두개의 입력이 한쌍이므로 i추가 증가
+				if(chr1 == '(' && chr2 == ')') {
+					sum+=bar;
+					i++;
+					continue;
+				}
+				// 레이저가 아닌 ( 가 입력되면 막대의 개수 추가
+				if(chr1 == '(') bar++;
+				// ) 가 입력되면 막대의 개수 감소, sum에 끝난 막대기 추가
+				else{
+					bar--;
+					sum++;
+				}
+			}
+			// 입력이 종료되었을 때 남은 막대기의 끝부분을 sum에 추가
+			sum+=bar;
+			sb.append(sum).append("\n");
+		}
+		System.out.println(sb);
+	}
+}

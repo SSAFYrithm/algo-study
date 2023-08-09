@@ -1,0 +1,32 @@
+/*
+* 메모리 18,672 kb
+* 실행시간 100 ms
+*/
+
+import java.io.*;
+import java.util.*;
+
+public class SWEA1217_거듭제곱 {
+    static StringBuilder sb = new StringBuilder();
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        for(int test = 1; test <= 10; test++){
+            sb.append("#").append(test).append(" ");
+            int a = Integer.parseInt(br.readLine());
+            String str = br.readLine();
+            StringTokenizer stk = new StringTokenizer(str);
+            int N = Integer.parseInt(stk.nextToken());
+            int P = Integer.parseInt(stk.nextToken());
+            System.out.print("#"+test+" ");
+            rec(1, N, P);
+        }
+    }
+    private static void rec(int prod, int n, int cnt){
+        if(cnt == 0){
+            System.out.println(prod);
+            return;
+
+        }
+        rec(prod*n, n, cnt-1);
+    }
+}

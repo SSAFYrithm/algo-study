@@ -1,0 +1,42 @@
+/*
+* 메모리 20,544 kb
+* 실행시간 126 ms
+*/
+
+
+package list;
+
+import java.io.*;
+import java.util.*;
+
+public class SWEA1208_Flatten {
+
+	private static int[] boxs = new int[100];
+
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
+		for (int test = 1; test <= 10; test++) {
+			sb.append("#").append(test).append(" ");
+			int dump = Integer.parseInt(br.readLine());
+			String str = br.readLine();
+			StringTokenizer stk = new StringTokenizer(str);
+
+			for (int i = 0; i < 100; i++) {
+				boxs[i] = Integer.parseInt(stk.nextToken());
+			}
+			Arrays.sort(boxs);
+
+			for (int i = 0; i < dump; i++) {
+				boxs[0]++;
+				boxs[99]--;
+				Arrays.sort(boxs);
+			}
+			int gap = boxs[99]-boxs[0];
+			sb.append(gap).append("\n");	
+		}
+		System.out.println(sb);
+	}
+
+}
