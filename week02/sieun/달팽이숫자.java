@@ -1,4 +1,4 @@
-package 김시은;
+package sieun;
 
 import java.util.Scanner;
 import java.io.FileInputStream;
