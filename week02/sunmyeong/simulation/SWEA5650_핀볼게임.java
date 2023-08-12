@@ -1,8 +1,9 @@
 /*
- * 테스트케이스 15/50 Runtime Error
+ * 메모리 42172KB
+ * 실행시간 1110ms
  */
 
-package week2.sunmyeong.simulation;
+package Simulation;
 
 import java.io.*;
 import java.util.*;
@@ -18,7 +19,7 @@ public class SWEA5650_핀볼게임 {
 
         for(int test = 1; test <= T; test++) {
             max = 0;
-            N = Integer.parseInt(br.readLine());	//map의 크기
+            N = Integer.parseInt(br.readLine().trim());	//map의 크기
             map = new int[N][N];
             wormHole = new ArrayList[11];	// 같은 숫자의 두 웜홀의 {row1, col1, row2, col2}로 값을 가지는 List 
 
@@ -40,8 +41,8 @@ public class SWEA5650_핀볼게임 {
                 for(int j = 0; j < N; j++) {
                     if(map[i][j] != 0) continue;	// map의 빈칸(0)이 아니라면 continue
                     start = new int[] {i, j};	// 시작위치 저장
-                    row = i; col = j;	// 공의 시작위치 지정
                     for(int d = 0; d < 4; d++) {	// 상하좌우 방향으로 실행
+                    	row = i; col = j;	// 공의 시작위치 지정
                         score = 0;	//시작점수 초기화
                         dir = d;	//시작 방향 설정
                         game = true;	//게임 시작 flag
@@ -57,35 +58,38 @@ public class SWEA5650_핀볼게임 {
         }
 
     }
+    public static void flatBlock() {	//벽을 만나면 현재점수*2 + 1로 게임이 끝나는 것과 같다
+    	score *= 2;
+    	score++;
+    	game = false;
+    	return;
+    }
+
 
     public static void move() {	//공을 움직이는 메서드
         switch (dir) {
         case 0:    // 공이 위로 갈때
             if(row > 0) row--;	//위로 갈 수 있으면 위로 감
             else {	//위로 갈 수 없다면(벽에 부딪힌다면)
-                score++;	//점수+1
-                dir = 1;	//아래로 방향 전환
+            	flatBlock();
             }
             break;
         case 1: // 공이 아래로 갈때
             if(row < N-1) row++;	//아래로 갈 수 있으면 아래로 감
             else {	//아래로 갈 수 없다면
-                score++;	//점수+1
-                dir = 0;	//위로 방향 전환
+            	flatBlock();
             }
             break;
         case 2:    // 공이 왼쪽으로 갈때
             if(col > 0) col--;	//왼쪽으로 갈수 있으면 왼쪽으로 감
             else {	//왼쪽으로 갈 수 없다면
-                score++;	//점수+1
-                dir = 3;	//오른쪽으로 방향 전환
+            	flatBlock();
             }
             break;
         case 3: // 공이 오른쪽으로 갈때 갈때
             if(col < N-1) col++;	//오른쪽으로 갈 수 있다면 오른쪽으로 감
             else {	//오른쪽으로 갈 수 없다면
-                score++;	//점수+1
-                dir = 2;	//왼쪽으로 방향전환
+            	flatBlock();
             }
             break;
         default:
@@ -110,6 +114,7 @@ public class SWEA5650_핀볼게임 {
     }
 
     public static void check() {	//해당위치가 어떤곳인지 판단하고 그에 알맞은 실행을 하는 메서드
+    	if(!game) return;
         switch(map[row][col]) {	//현재위치의 숫자를 key로 하는 switch문
         case -1:    // 블랙홀일 때 게임 종료
             game = false;
@@ -121,39 +126,63 @@ public class SWEA5650_핀볼게임 {
             }
             break;
         case 1:	// 1번 블록
-            if(dir == 0) dir = 1;            // 아래에서 왔다면
-            else if (dir == 1) dir = 3;        // 위에서 왔다면
-            else if (dir == 2) dir = 0;        // 오른쪽에서 왔다면
-            else if (dir == 3) dir = 2;        // 왼쪽에서 왔다면
-            score++;	// 블록에 부딪혔으므로 점수+1
+            if(dir == 0) flatBlock();          // 아래에서 왔다면
+            else if (dir == 1) {	// 위에서 왔다면
+            	dir = 3;        
+            	score++;
+            	return;
+            }
+            else if (dir == 2) {	// 오른쪽에서 왔다면
+            	dir = 0;        
+            	score++;
+            	return;
+            }
+            else if (dir == 3) flatBlock();        // 왼쪽에서 왔다면
             break;
         case 2:	// 2번 블록
-            if(dir == 0) dir = 3;            // 아래에서 왔다면
-            else if (dir == 1) dir = 0;        // 위에서 왔다면
-            else if (dir == 2) dir = 1;        // 오른쪽에서 왔다면
-            else if (dir == 3) dir = 2;        // 왼쪽에서 왔다면
-            score++;	// 블록에 부딪혔으므로 점수+1
+            if(dir == 0) {	// 아래에서 왔다면
+            	dir = 3;            
+            	score++;
+            	return;
+            }
+            else if (dir == 1) flatBlock();        // 위에서 왔다면
+            else if (dir == 2) {	// 오른쪽에서 왔다면
+            	dir = 1;        
+            	score++;
+            	return;
+            }
+            else if (dir == 3) flatBlock();        // 왼쪽에서 왔다면
             break;
         case 3:	// 3번 블록
-            if(dir == 0) dir = 2;            // 아래에서 왔다면
-            else if (dir == 1) dir = 0;        // 위에서 왔다면
-            else if (dir == 2) dir = 3;        // 오른쪽에서 왔다면
-            else if (dir == 3) dir = 1;        // 왼쪽에서 왔다면
-            score++;	// 블록에 부딪혔으므로 점수+1
+            if(dir == 0) {	// 아래에서 왔다면
+            	dir = 2;            
+            	score++;
+            	return;
+            }
+            else if (dir == 1) flatBlock();        // 위에서 왔다면
+            else if (dir == 2) flatBlock();       // 오른쪽에서 왔다면
+            else if (dir == 3) {	// 왼쪽에서 왔다면
+            	dir = 1;        
+            	score++;
+            	return;
+            }
             break;
         case 4:	// 4번 블록
-            if(dir == 0) dir = 1;            // 아래에서 왔다면
-            else if (dir == 1) dir = 2;        // 위에서 왔다면
-            else if (dir == 2) dir = 3;        // 오른쪽에서 왔다면
-            else if (dir == 3) dir = 0;        // 왼쪽에서 왔다면
-            score++;	// 블록에 부딪혔으므로 점수+1
+            if(dir == 0) flatBlock();            // 아래에서 왔다면
+            else if (dir == 1) {	// 위에서 왔다면
+            	dir = 2;        
+            	score++;
+            	return;
+            }
+            else if (dir == 2) flatBlock();        // 오른쪽에서 왔다면
+            else if (dir == 3) {	// 왼쪽에서 왔다면
+            	dir = 0;        
+            	score++;
+            	return;
+            }
             break;
         case 5:	// 5번 블록
-            if(dir == 0) dir = 1;            // 아래에서 왔다면
-            else if (dir == 1) dir = 0;        // 위에서 왔다면
-            else if (dir == 2) dir = 3;        // 오른쪽에서 왔다면
-            else if (dir == 3) dir = 2;        // 왼쪽에서 왔다면
-            score++;	// 블록에 부딪혔으므로 점수+1
+        	flatBlock();
             break;
         case 6:    // 웜홀일때
         case 7:
@@ -167,4 +196,5 @@ public class SWEA5650_핀볼게임 {
             break;
         }
     }
+    
 }
