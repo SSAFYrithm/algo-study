@@ -69,9 +69,9 @@ public class SWEA5650_핀볼게임 {
 	//핀볼 움직이는 메소드. 시작좌표를 인자로 받는다.
 	public static void move(int y, int x) {
 		int cnt = 0, dir;
+		
 		for(int i = 0 ; i < 4; i++) {
 			dir = i;
-//			System.out.println("(y, x) :" + "("+y+", "+x+")");
 			int ny = y + dy[dir];
 			int nx = x + dx[dir];
 			//탐색
@@ -79,12 +79,9 @@ public class SWEA5650_핀볼게임 {
 				if(board[ny][nx] == -1 || (ny == y && nx ==x) ) { // 종료 조건. 시작좌표로 돌아오거나 블랙홀을 만날경우.
 					break;
 				}
-				else if(board[ny][nx] == 5) { // 벽이거나 5번블록일 때
-					cnt++;
-					if(dir == 0)	  dir = 1;
-					else if(dir == 1) dir = 0;
-					else if(dir == 2) dir = 3;
-					else if(dir == 3) dir = 2;
+				else if(board[ny][nx] == 5) { // 벽이거나 5번블록일 때, cnt 값 현재왔던경로 *2 + 1값 으로 갱신하고 탐색 종료.
+					cnt = cnt*2 +1;
+					break;
 				}
 				else if(board[ny][nx] == 1) {// 1번블록
 					cnt++;
