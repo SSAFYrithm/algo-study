@@ -3,22 +3,24 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+//@SuppressWarnings("ALL")
 public class 보호_필름 {
     static StringTokenizer st;
-    static int d,w,k;
-    static int protector[][];
-    static int state;
+    static int d, w, k, ans; // d = depth, w = width,k = threshold, ans = answer
+    static int protector[][]; // 필름 레이어
+
+    //    static boolean state;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(br.readLine());
-        state = 1;
 
-        for (int tc = 0; tc < T+1; tc++) {
+        for (int tc = 0; tc < T + 1; tc++) {
 
             st = new StringTokenizer(br.readLine());
             int d = Integer.parseInt(st.nextToken());
             int w = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
+            ans = Integer.MAX_VALUE; // 이후 최소값으로 비교
 
             for (int i = 0; i < d; i++) {
                 st = new StringTokenizer(br.readLine());
@@ -26,34 +28,62 @@ public class 보호_필름 {
                     protector[i][j] = Integer.parseInt(st.nextToken());
                 }
             }
-            for (int i = 0; i < w; i++) {
-                if (validateCheck(0,w,1,protector[0][w],false)){
-                    state = 0;
-                }
+
+            if (validateCheck()) {
+                ans = 0;
+            } else {
+                feelLayer(0, 0);
             }
 
-            System.out.println(state);
+
+            System.out.println("#" + tc + " " + ans);
         }
 
     }
 
-    public static boolean validateCheck(int layer,int cell,int sequence,int beforeCell, boolean validate ) {
+    public static void feelLayer(int layer, int cnt) { //할 수 있을 것 같아서 생각 중
 
-        if (sequence == k){
-            validate = true;
+
+
+        //a로 채우기
+        for (int i = 0; i < w; i++) {
+            protector[layer][w] = 0;
         }
 
-        if (layer == d) {
-            if (validate) return true;
-            else return false;
+        feelLayer(layer+1, cnt+1);
+        //b로 채우기
+        for (int i = 0; i < w; i++) {
+            protector[layer][w] = 1;
         }
 
-        if (beforeCell != protector[layer][cell]){
-            return validateCheck(layer+1,cell,1,protector[layer][cell],validate);
-        } else{
-            return validateCheck(layer+1,cell,sequence+1,protector[layer][cell],validate);
-        }
+        feelLayer(layer+1, cnt+1);
 
-        //just blank
+        return;
+    }
+
+    public static boolean validateCheck() { //필름이 유효한지 검사.
+        for (int i = 0; i < w; i++) {
+            int cnt = 1;
+            int type = protector[0][w];
+            boolean state = false;
+            for (int j = 1; j < d; j++) {
+                if (protector[d][w] == protector[d - 1][w]) {
+                    cnt += 1;
+                } else {
+                    type = protector[d][w];
+                    cnt = 1;
+                }
+
+                if (cnt == k) {
+                    state = true;
+//                    return true;
+                }
+            }
+            if (!state) { // 임계값에 도달하지 않은 레이어가 있다면 탈출, false 리턴
+                return false;
+            }
+
+        }
+        return true;
     }
 }
