@@ -7,7 +7,7 @@ import java.util.Stack;
 //메모리
 //152 ms
 //실행시간
-
+// 늦은 시간까지 도와준 정예원씨 감사합니다.
 public class 쇠막대기_자르기 {
     static String pipes; // 주어진 파이프와 레이저 상태
     static int cuttingPipes; //레이저로 자를 파이프의 개수를 확인
