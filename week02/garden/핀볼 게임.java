@@ -3,12 +3,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+// 메모리 42,820kb 실행시간 489ms
 public class Solution {
 	private static int N, max;
 	private static int[][] board;
 	private static int[] dx = { -1, 1, 0, 0 }; // 상,하,좌,우
 	private static int[] dy = { 0, 0, -1, 1 };
-	public static int[][][] warmhole = new int[11][2][2]; // 웜홀담을 배열. 1번째 인덱스 웜홀 번호, 2번째 인덱스 웜홀 쌍, 3번째 인덱스 x,y좌표
+	public static int[][][] warmhole; // 웜홀담을 배열. 1번째 인덱스 웜홀 번호, 2번째 인덱스 웜홀 쌍, 3번째 인덱스 x,y좌표
 
 	public static void main(String[] args) throws IOException { // 메인 시작
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -19,6 +20,7 @@ public class Solution {
 		for (int test_case = 1; test_case <= T; test_case++) {
 			N = Integer.parseInt(br.readLine().trim());
 			board = new int[N + 2][N + 2]; // 맵 바깥 벽에 부딪히는 것을 5로 채워주기 위해 +2로 생성
+			warmhole = new int[11][2][2];
 
 			for (int i = 0; i < N + 2; i++) {
 				board[i][0] = 5; // 왼쪽 벽 5로 채움
