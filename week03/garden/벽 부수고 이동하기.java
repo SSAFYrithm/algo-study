@@ -1,5 +1,3 @@
-package BOJ.Gold;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
@@ -7,7 +5,7 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 // 메모리 87540kb 시간 552ms
-public class Q2206_벽부수고이동하기 {
+public class Main {
 	static int N, M, answer;
 	static char[][] map;
 	static int[] dx = { 1, 0, -1, 0 }; // 하우상좌
