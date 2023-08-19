@@ -1,0 +1,83 @@
+//2,348 ms, 24,588kb
+
+import java.io.*;
+import java.util.StringTokenizer;
+
+class Solution
+{
+    	static int[][] arr, tmp;
+	static int d,w,k,ans;
+	
+	public static void main(String[] args) throws Exception {
+		BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st=new StringTokenizer(br.readLine());
+		StringBuilder sb=new StringBuilder();
+		
+		int T=Integer.parseInt(st.nextToken());
+		for(int tc=1;tc<=T;tc++) {
+			st=new StringTokenizer(br.readLine());
+			d=Integer.parseInt(st.nextToken());
+			w=Integer.parseInt(st.nextToken());
+			k=Integer.parseInt(st.nextToken());
+			arr=new int[d][w];
+			tmp=new int[d][w];
+			ans=Integer.MAX_VALUE;
+			for(int i=0;i<d;i++) {
+				st=new StringTokenizer(br.readLine());
+				for(int j=0;j<w;j++) {
+					arr[i][j]=Integer.parseInt(st.nextToken());
+					tmp[i][j]=arr[i][j];
+				}
+			}
+			if(check()) ans=0;
+			else injection(0,0);
+			sb.append('#').append(tc).append(' ').append(ans).append('\n');
+		}
+		System.out.println(sb.toString());
+	}
+	
+	static void injection(int num,int s) {
+		
+		if(s==d) {
+			if(check() && ans>num) {
+				ans=num;
+			}
+			return ;
+		}
+		
+		injection(num,s+1);
+		
+		for(int i=0;i<w;i++) tmp[s][i]=0;
+		injection(num+1,s+1);
+	
+
+		for(int i=0;i<w;i++) tmp[s][i]=1;
+		injection(num+1,s+1);
+		
+
+		for(int i=0;i<w;i++) tmp[s][i]=arr[s][i];
+	}
+	
+	
+	static boolean check() {
+		for(int j=0;j<w;j++) {
+			int cnt=0,cur=tmp[0][j];
+			boolean flag=false;
+			for(int i=0;i<d;i++) {
+				if(cur==tmp[i][j]) {
+					cnt+=1;
+				} else {
+					cur=tmp[i][j];
+					cnt=1;
+				}
+				if(cnt==k) {
+					flag=true;
+					break;
+				}
+				
+			}
+			if(!flag) return false;
+		}
+		return true;
+	}
+}
